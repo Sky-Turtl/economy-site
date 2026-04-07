@@ -1,20 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 
 const partnerLogos = [
-  { name: "Mitsubishi Electric", src: "/logos/mitsubishi.svg" },
-  { name: "Fujitsu", src: "/logos/fujitsu.svg" },
-  { name: "York", src: "/logos/york.jpg" },
-  { name: "Carrier", src: "/logos/carrier.svg" },
-  { name: "Rheem", src: "/logos/rheem.svg" },
-  { name: "Sporlan", src: "/logos/sporlan.jpg" },
-  { name: "Tecumseh", src: "/logos/tecumseh.svg" },
-  { name: "CT Morley", src: "/logos/CTM.png" },
-  { name: "Robertshaw", src: "/logos/robertshaw.svg" },
-  { name: "Embraco", src: "/logos/embraco.svg" },
-  { name: "Solstice", src: "/logos/solstice.svg" },
-  { name: "Mueller Streamline", src: "/logos/mueller.jpg" },
-  { name: "PennBarry", src: "/logos/pennbarry.jpg" },
-  { name: "Canarm", src: "/logos/canarm.jpg" },
+  { name: "Mitsubishi Electric", src: `${import.meta.env.BASE_URL}logos/mitsubishi.svg` },
+  { name: "Fujitsu", src: `${import.meta.env.BASE_URL}logos/fujitsu.svg` },
+  { name: "York", src: `${import.meta.env.BASE_URL}logos/york.jpg` },
+  { name: "Carrier", src: `${import.meta.env.BASE_URL}logos/carrier.svg` },
+  { name: "Rheem", src: `${import.meta.env.BASE_URL}logos/rheem.svg` },
+  { name: "Sporlan", src: `${import.meta.env.BASE_URL}logos/sporlan.jpg` },
+  { name: "Tecumseh", src: `${import.meta.env.BASE_URL}logos/tecumseh.svg` },
+  { name: "CT Morley", src: `${import.meta.env.BASE_URL}logos/CTM.png` },
+  { name: "Robertshaw", src: `${import.meta.env.BASE_URL}logos/robertshaw.svg` },
+  { name: "Embraco", src: `${import.meta.env.BASE_URL}logos/embraco.svg` },
+  { name: "Solstice", src: `${import.meta.env.BASE_URL}logos/solstice.svg` },
+  { name: "Mueller Streamline", src: `${import.meta.env.BASE_URL}logos/mueller.jpg` },
+  { name: "PennBarry", src: `${import.meta.env.BASE_URL}logos/pennbarry.jpg` },
+  { name: "Canarm", src: `${import.meta.env.BASE_URL}logos/canarm.jpg` },
 ];
 
 function LogoCarousel() {
