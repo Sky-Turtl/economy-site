@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const hours = {
   Sunday: "8:00 AM - 3:00 PM",
   Monday: "7:30 AM - 6:00 PM",
@@ -15,6 +17,8 @@ const holidayClosures = [
 ];
 
 export default function Header({ page, setPage }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
   });
@@ -24,6 +28,11 @@ export default function Header({ page, setPage }) {
     { label: "About", key: "about" },
     { label: "Contact Us", key: "contact" },
   ];
+
+  const handleNavClick = (key) => {
+    setPage(key);
+    setMenuOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
@@ -50,37 +59,70 @@ export default function Header({ page, setPage }) {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <button
-          onClick={() => setPage("home")}
-          className="flex items-center gap-3"
-        >
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--color-primary)] font-bold text-white">
-            E
-          </div>
-          <div className="text-left">
-            <div className="font-semibold">Economy RHVAC Supply</div>
-            <div className="text-sm text-slate-500">
-              Refrigeration & HVAC Supply
+      <div className="mx-auto max-w-7xl px-6 py-4">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => handleNavClick("home")}
+            className="flex items-center gap-3"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--color-primary)] font-bold text-white">
+              E
             </div>
-          </div>
-        </button>
+            <div className="text-left">
+              <div className="font-semibold">Economy RHVAC Supply</div>
+            </div>
+          </button>
 
-        <nav className="flex flex-wrap gap-3">
-          {navItems.map((item) => (
-            <button
-              key={item.key}
-              onClick={() => setPage(item.key)}
-              className={`rounded-md px-3 py-2 text-sm font-medium ${
-                page === item.key
-                  ? "bg-red-50 text-[var(--color-primary)]"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
+          <nav className="hidden md:flex md:flex-wrap md:gap-3">
+            {navItems.map((item) => (
+              <button
+                key={item.key}
+                onClick={() => handleNavClick(item.key)}
+                className={`rounded-md px-3 py-2 text-sm font-medium ${
+                  page === item.key
+                    ? "bg-red-50 text-[var(--color-primary)]"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
+          <button
+            type="button"
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-700 md:hidden"
+          >
+            <div className="flex flex-col gap-1.5">
+              <span className="block h-0.5 w-5 bg-current"></span>
+              <span className="block h-0.5 w-5 bg-current"></span>
+              <span className="block h-0.5 w-5 bg-current"></span>
+            </div>
+          </button>
+        </div>
+
+        {menuOpen && (
+          <div className="mt-4 border-t border-slate-200 pt-4 md:hidden">
+            <nav className="flex flex-col gap-2">
+              {navItems.map((item) => (
+                <button
+                  key={item.key}
+                  onClick={() => handleNavClick(item.key)}
+                  className={`w-full rounded-md px-4 py-3 text-left text-sm font-medium ${
+                    page === item.key
+                      ? "bg-red-50 text-[var(--color-primary)]"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );

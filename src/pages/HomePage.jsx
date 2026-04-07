@@ -18,85 +18,246 @@ const partnerLogos = [
 ];
 
 function LogoCarousel() {
-  const trackRef = useRef(null);
-  const firstSetRef = useRef(null);
-  const offsetRef = useRef(0);
-  const speedRef = useRef(0.45);
-  const currentSpeedRef = useRef(0.45);
-  const isPausedRef = useRef(false);
+  const desktopTrackRef = useRef(null);
+  const desktopFirstSetRef = useRef(null);
+  const desktopOffsetRef = useRef(0);
+  const desktopSpeedRef = useRef(0.45);
+  const desktopCurrentSpeedRef = useRef(0.45);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  useEffect(() => {
-    let frameId;
+  const mobileTrackRef = useRef(null);
+  const mobileFirstSetRef = useRef(null);
+  const mobileOffsetRef = useRef(0);
+  const mobileCurrentVelocityRef = useRef(0.45);
+  const mobileTargetVelocityRef = useRef(0.45);
+  const mobilePausedRef = useRef(false);
 
-    const animate = () => {
-      const track = trackRef.current;
-      const firstSet = firstSetRef.current;
+  const pointerDownRef = useRef(false);
+  const holdTimeoutRef = useRef(null);
+  const startXRef = useRef(0);
+  const lastXRef = useRef(0);
+  const lastTimeRef = useRef(0);
+  const movedRef = useRef(false);
+
+  const MOBILE_BASE_SPEED = 0.45;
+  const MOBILE_MAX_SPEED = 2.2;
+  const MOBILE_MIN_SPEED = -1.6;
+  const HOLD_DELAY = 180;
+  const DRAG_MULTIPLIER = 0.035;
+  const VELOCITY_BLEND = 0.35;
+  const DECAY_TO_BASE = 0.025;
+
+  useEffect(() => {
+    let desktopFrameId;
+    let mobileFrameId;
+
+    const animateDesktop = () => {
+      const track = desktopTrackRef.current;
+      const firstSet = desktopFirstSetRef.current;
 
       if (!track || !firstSet) {
-        frameId = requestAnimationFrame(animate);
+        desktopFrameId = requestAnimationFrame(animateDesktop);
         return;
       }
 
       const singleSetWidth = firstSet.offsetWidth;
 
-      currentSpeedRef.current +=
-        (speedRef.current - currentSpeedRef.current) * 0.06;
+      desktopCurrentSpeedRef.current +=
+        (desktopSpeedRef.current - desktopCurrentSpeedRef.current) * 0.06;
 
-      if (!isPausedRef.current) {
-        offsetRef.current += currentSpeedRef.current;
+      desktopOffsetRef.current += desktopCurrentSpeedRef.current;
+
+      if (singleSetWidth > 0) {
+        desktopOffsetRef.current =
+          ((desktopOffsetRef.current % singleSetWidth) + singleSetWidth) %
+          singleSetWidth;
+      }
+
+      track.style.transform = `translate3d(-${desktopOffsetRef.current}px, 0, 0)`;
+      desktopFrameId = requestAnimationFrame(animateDesktop);
+    };
+
+    const animateMobile = () => {
+      const track = mobileTrackRef.current;
+      const firstSet = mobileFirstSetRef.current;
+
+      if (!track || !firstSet) {
+        mobileFrameId = requestAnimationFrame(animateMobile);
+        return;
+      }
+
+      const singleSetWidth = firstSet.offsetWidth;
+
+      if (!mobilePausedRef.current) {
+        mobileTargetVelocityRef.current +=
+          (MOBILE_BASE_SPEED - mobileTargetVelocityRef.current) * DECAY_TO_BASE;
+
+        mobileCurrentVelocityRef.current +=
+          (mobileTargetVelocityRef.current - mobileCurrentVelocityRef.current) *
+          0.08;
+
+        mobileOffsetRef.current += mobileCurrentVelocityRef.current;
       }
 
       if (singleSetWidth > 0) {
-        offsetRef.current = offsetRef.current % singleSetWidth;
+        mobileOffsetRef.current =
+          ((mobileOffsetRef.current % singleSetWidth) + singleSetWidth) %
+          singleSetWidth;
       }
 
-      track.style.transform = `translate3d(-${offsetRef.current}px, 0, 0)`;
-      frameId = requestAnimationFrame(animate);
+      track.style.transform = `translate3d(-${mobileOffsetRef.current}px, 0, 0)`;
+      mobileFrameId = requestAnimationFrame(animateMobile);
     };
 
-    frameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(frameId);
+    desktopFrameId = requestAnimationFrame(animateDesktop);
+    mobileFrameId = requestAnimationFrame(animateMobile);
+
+    return () => {
+      cancelAnimationFrame(desktopFrameId);
+      cancelAnimationFrame(mobileFrameId);
+      if (holdTimeoutRef.current) clearTimeout(holdTimeoutRef.current);
+    };
   }, []);
+
+  const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+  const clearHoldTimeout = () => {
+    if (holdTimeoutRef.current) {
+      clearTimeout(holdTimeoutRef.current);
+      holdTimeoutRef.current = null;
+    }
+  };
+
+  const handleMobilePointerDown = (e) => {
+    pointerDownRef.current = true;
+    movedRef.current = false;
+    mobilePausedRef.current = false;
+
+    startXRef.current = e.clientX;
+    lastXRef.current = e.clientX;
+    lastTimeRef.current = performance.now();
+
+    clearHoldTimeout();
+    holdTimeoutRef.current = setTimeout(() => {
+      if (pointerDownRef.current && !movedRef.current) {
+        mobilePausedRef.current = true;
+      }
+    }, HOLD_DELAY);
+  };
+
+  const handleMobilePointerMove = (e) => {
+    if (!pointerDownRef.current) return;
+
+    const now = performance.now();
+    const currentX = e.clientX;
+    const dx = currentX - lastXRef.current;
+    const totalDx = currentX - startXRef.current;
+    const dt = Math.max(now - lastTimeRef.current, 1);
+
+    if (Math.abs(totalDx) > 4) {
+      movedRef.current = true;
+      clearHoldTimeout();
+      mobilePausedRef.current = false;
+    }
+
+    if (movedRef.current) {
+      mobileOffsetRef.current -= dx;
+
+      const swipeVelocity = (-dx / dt) * 16 * DRAG_MULTIPLIER * 10;
+      const nextTarget =
+        mobileTargetVelocityRef.current * (1 - VELOCITY_BLEND) +
+        swipeVelocity * VELOCITY_BLEND;
+
+      mobileTargetVelocityRef.current = clamp(
+        nextTarget,
+        MOBILE_MIN_SPEED,
+        MOBILE_MAX_SPEED
+      );
+    }
+
+    lastXRef.current = currentX;
+    lastTimeRef.current = now;
+  };
+
+  const handleMobilePointerUp = () => {
+    pointerDownRef.current = false;
+    clearHoldTimeout();
+    mobilePausedRef.current = false;
+  };
+
+  const handleMobilePointerCancel = () => {
+    pointerDownRef.current = false;
+    clearHoldTimeout();
+    mobilePausedRef.current = false;
+  };
 
   return (
     <>
-      {/* Mobile / tablet touch-scroll version */}
-      <div className="md:hidden overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className="flex w-max gap-4 px-1 py-2">
-          {partnerLogos.map((logo, index) => (
-            <div
-              key={`${logo.name}-mobile-${index}`}
-              className="flex h-28 w-40 shrink-0 snap-start items-center justify-center rounded-sm border border-slate-100 bg-white px-4"
-            >
-              <img
-                src={logo.src}
-                alt={logo.name}
-                className="max-h-20 w-full object-contain"
-              />
-            </div>
-          ))}
+      {/* Mobile version */}
+      <div
+        className="overflow-hidden md:hidden"
+        onPointerDown={handleMobilePointerDown}
+        onPointerMove={handleMobilePointerMove}
+        onPointerUp={handleMobilePointerUp}
+        onPointerCancel={handleMobilePointerCancel}
+        onPointerLeave={handleMobilePointerCancel}
+        style={{ touchAction: "pan-y" }}
+      >
+        <div
+          ref={mobileTrackRef}
+          className="flex w-max items-center will-change-transform select-none"
+        >
+          <div ref={mobileFirstSetRef} className="flex items-center gap-6 pr-6">
+            {partnerLogos.map((logo, index) => (
+              <div
+                key={`${logo.name}-mobile-first-${index}`}
+                className="flex h-28 w-40 shrink-0 items-center justify-center"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  draggable={false}
+                  className="max-h-20 w-full object-contain"
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-6 pr-6">
+            {partnerLogos.map((logo, index) => (
+              <div
+                key={`${logo.name}-mobile-second-${index}`}
+                className="flex h-28 w-40 shrink-0 items-center justify-center"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  draggable={false}
+                  className="max-h-20 w-full object-contain"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Desktop animated version */}
+      {/* Desktop version */}
       <div
         className="hidden overflow-hidden md:block"
         onMouseEnter={() => {
-          speedRef.current = 0.225;
+          desktopSpeedRef.current = 0.225;
         }}
         onMouseLeave={() => {
-          speedRef.current = 0.45;
+          desktopSpeedRef.current = 0.45;
           setHoveredIndex(null);
-          isPausedRef.current = false;
         }}
       >
         <div
-          ref={trackRef}
+          ref={desktopTrackRef}
           className="flex w-max items-center will-change-transform"
         >
           <div
-            ref={firstSetRef}
+            ref={desktopFirstSetRef}
             className="flex items-center gap-10 pr-10"
           >
             {partnerLogos.map((logo, index) => {
@@ -108,11 +269,9 @@ function LogoCarousel() {
                   className="flex h-32 w-48 shrink-0 items-center justify-center"
                   onMouseEnter={() => {
                     setHoveredIndex(index);
-                    isPausedRef.current = true;
                   }}
                   onMouseLeave={() => {
                     setHoveredIndex(null);
-                    isPausedRef.current = false;
                   }}
                 >
                   <img
@@ -138,11 +297,9 @@ function LogoCarousel() {
                   className="flex h-32 w-48 shrink-0 items-center justify-center"
                   onMouseEnter={() => {
                     setHoveredIndex(duplicatedIndex);
-                    isPausedRef.current = true;
                   }}
                   onMouseLeave={() => {
                     setHoveredIndex(null);
-                    isPausedRef.current = false;
                   }}
                 >
                   <img
