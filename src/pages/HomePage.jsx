@@ -23,6 +23,7 @@ function LogoCarousel() {
   const offsetRef = useRef(0);
   const speedRef = useRef(0.45);
   const currentSpeedRef = useRef(0.45);
+  const isPausedRef = useRef(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
@@ -42,7 +43,9 @@ function LogoCarousel() {
       currentSpeedRef.current +=
         (speedRef.current - currentSpeedRef.current) * 0.06;
 
-      offsetRef.current += currentSpeedRef.current;
+      if (!isPausedRef.current) {
+        offsetRef.current += currentSpeedRef.current;
+      }
 
       if (singleSetWidth > 0) {
         offsetRef.current = offsetRef.current % singleSetWidth;
@@ -57,69 +60,105 @@ function LogoCarousel() {
   }, []);
 
   return (
-    <div
-      className="overflow-hidden"
-      onMouseEnter={() => {
-        speedRef.current = 0.225;
-      }}
-      onMouseLeave={() => {
-        speedRef.current = 0.45;
-        setHoveredIndex(null);
-      }}
-    >
-      <div
-        ref={trackRef}
-        className="flex w-max items-center will-change-transform"
-      >
-        <div
-          ref={firstSetRef}
-          className="flex items-center gap-10 pr-10"
-        >
-          {partnerLogos.map((logo, index) => {
-            const isHovered = hoveredIndex === index;
-
-            return (
-              <div
-                key={`${logo.name}-first-${index}`}
-                className="flex h-32 w-48 shrink-0 items-center justify-center"
-                onMouseEnter={() => setHoveredIndex(index)}
-              >
-                <img
-                  src={logo.src}
-                  alt={logo.name}
-                  className={`max-h-24 w-full object-contain transition duration-300 ${
-                    isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
-                  }`}
-                />
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="flex items-center gap-10 pr-10">
-          {partnerLogos.map((logo, index) => {
-            const duplicatedIndex = index + partnerLogos.length;
-            const isHovered = hoveredIndex === duplicatedIndex;
-
-            return (
-              <div
-                key={`${logo.name}-second-${index}`}
-                className="flex h-32 w-48 shrink-0 items-center justify-center"
-                onMouseEnter={() => setHoveredIndex(duplicatedIndex)}
-              >
-                <img
-                  src={logo.src}
-                  alt={logo.name}
-                  className={`max-h-24 w-full object-contain transition duration-300 ${
-                    isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
-                  }`}
-                />
-              </div>
-            );
-          })}
+    <>
+      {/* Mobile / tablet touch-scroll version */}
+      <div className="md:hidden overflow-x-auto overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex w-max gap-4 px-1 py-2">
+          {partnerLogos.map((logo, index) => (
+            <div
+              key={`${logo.name}-mobile-${index}`}
+              className="flex h-28 w-40 shrink-0 snap-start items-center justify-center rounded-sm border border-slate-100 bg-white px-4"
+            >
+              <img
+                src={logo.src}
+                alt={logo.name}
+                className="max-h-20 w-full object-contain"
+              />
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+
+      {/* Desktop animated version */}
+      <div
+        className="hidden overflow-hidden md:block"
+        onMouseEnter={() => {
+          speedRef.current = 0.225;
+        }}
+        onMouseLeave={() => {
+          speedRef.current = 0.45;
+          setHoveredIndex(null);
+          isPausedRef.current = false;
+        }}
+      >
+        <div
+          ref={trackRef}
+          className="flex w-max items-center will-change-transform"
+        >
+          <div
+            ref={firstSetRef}
+            className="flex items-center gap-10 pr-10"
+          >
+            {partnerLogos.map((logo, index) => {
+              const isHovered = hoveredIndex === index;
+
+              return (
+                <div
+                  key={`${logo.name}-first-${index}`}
+                  className="flex h-32 w-48 shrink-0 items-center justify-center"
+                  onMouseEnter={() => {
+                    setHoveredIndex(index);
+                    isPausedRef.current = true;
+                  }}
+                  onMouseLeave={() => {
+                    setHoveredIndex(null);
+                    isPausedRef.current = false;
+                  }}
+                >
+                  <img
+                    src={logo.src}
+                    alt={logo.name}
+                    className={`max-h-24 w-full object-contain transition duration-300 ${
+                      isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
+                    }`}
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center gap-10 pr-10">
+            {partnerLogos.map((logo, index) => {
+              const duplicatedIndex = index + partnerLogos.length;
+              const isHovered = hoveredIndex === duplicatedIndex;
+
+              return (
+                <div
+                  key={`${logo.name}-second-${index}`}
+                  className="flex h-32 w-48 shrink-0 items-center justify-center"
+                  onMouseEnter={() => {
+                    setHoveredIndex(duplicatedIndex);
+                    isPausedRef.current = true;
+                  }}
+                  onMouseLeave={() => {
+                    setHoveredIndex(null);
+                    isPausedRef.current = false;
+                  }}
+                >
+                  <img
+                    src={logo.src}
+                    alt={logo.name}
+                    className={`max-h-24 w-full object-contain transition duration-300 ${
+                      isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
+                    }`}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 
