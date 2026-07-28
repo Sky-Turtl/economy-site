@@ -26,12 +26,6 @@ export default function HomePage({ setPage }) {
             >
               Contact Us
             </button>
-            <button
-              onClick={() => setPage("about")}
-              className="rounded-sm border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-            >
-              Learn More
-            </button>
           </div>
         </div>
 
@@ -43,11 +37,14 @@ export default function HomePage({ setPage }) {
           <div className="mt-5 space-y-4">
             <div>
               <div className="text-xs font-semibold uppercase tracking-[0.04em] text-slate-400">
-                Phone
+                Call/Text
               </div>
-              <div className="mt-1 text-lg font-semibold text-slate-900">
+              <a
+                href="tel:17186612180"
+                className="mt-1 block text-lg font-semibold text-slate-900"
+              >
                 718-661-2180
-              </div>
+              </a>
             </div>
 
             <div>
@@ -72,30 +69,12 @@ export default function HomePage({ setPage }) {
         </div>
       </section>
 
-      <section className="grid gap-6 md:grid-cols-3">
-        <div className="border border-slate-200 bg-white p-6">
-          <h2 className="text-lg font-semibold">Contact</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600">
-            Phone and email contact information are available directly on the
-            homepage for quick access.
-          </p>
-        </div>
-
-        <div className="border border-slate-200 bg-white p-6">
-          <h2 className="text-lg font-semibold">Store Hours</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600">
-            Open Monday through Saturday from 7:30 AM to 6:00 PM and Sunday
-            from 8:00 AM to 3:00 PM.
-          </p>
-        </div>
-
-        <div className="border border-slate-200 bg-white p-6">
-          <h2 className="text-lg font-semibold">Privacy</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600">
-            Mobile information and text-message opt-in data are not shared with
-            third parties for marketing or promotional purposes.
-          </p>
-        </div>
+      <section className="border border-slate-200 bg-white p-6">
+        <h2 className="text-lg font-semibold">Privacy</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-600">
+          Mobile information and text-message opt-in data are not shared with
+          third parties for marketing or promotional purposes.
+        </p>
       </section>
 
       <section className="border border-slate-200 bg-white py-10">
@@ -134,26 +113,17 @@ export default function HomePage({ setPage }) {
                 Economy RHVAC Supply
               </div>
               <div className="mt-2 text-sm leading-7 text-slate-600">
-                131-18 Avery Ave
+                131-10 Avery Ave
                 <br />
                 Flushing, NY 11355
               </div>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-4">
-              <button
-                onClick={() => setPage("contact")}
-                className="rounded-sm bg-[var(--color-primary)] px-6 py-3 text-sm font-semibold text-white hover:bg-[var(--color-primary-dark)]"
-              >
-                Contact Us
-              </button>
             </div>
           </div>
 
           <div className="overflow-hidden bg-white">
             <iframe
               title="Economy RHVAC location map"
-              src="https://www.google.com/maps?q=131-18%20Avery%20Ave%2C%20Flushing%2C%20NY%2011355&z=14&output=embed"
+              src="https://www.google.com/maps?q=131-10%20Avery%20Ave%2C%20Flushing%2C%20NY%2011355&z=14&output=embed"
               className="h-full min-h-[420px] w-full border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
