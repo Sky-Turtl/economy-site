@@ -28,17 +28,27 @@ export default function ProductsPage() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {selected.items.map((item) => (
+          {selected.items.map((entry) => (
             <div
-              key={item}
+              key={entry.name}
               className="border border-slate-200 bg-white p-5"
             >
-              <PlaceholderImage
-                label={item}
-                className="h-32 w-full border border-slate-100"
-              />
+              {entry.logo ? (
+                <div className="flex h-32 w-full items-center justify-center border border-slate-100 p-4">
+                  <img
+                    src={entry.logo}
+                    alt={entry.name}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+              ) : (
+                <PlaceholderImage
+                  label={entry.name}
+                  className="h-32 w-full border border-slate-100"
+                />
+              )}
               <div className="mt-3 text-sm font-semibold text-slate-900">
-                {item}
+                {entry.name}
               </div>
             </div>
           ))}
