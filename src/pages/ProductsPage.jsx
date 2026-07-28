@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { categories } from "../data/products";
 import PlaceholderImage from "../components/PlaceholderImage";
+import BrandBadge from "../components/BrandBadge";
 
 export default function ProductsPage() {
   const [activeCategory, setActiveCategory] = useState(null);
@@ -42,8 +43,8 @@ export default function ProductsPage() {
                   />
                 </div>
               ) : (
-                <PlaceholderImage
-                  label={entry.name}
+                <BrandBadge
+                  name={entry.name}
                   className="h-32 w-full border border-slate-100"
                 />
               )}
