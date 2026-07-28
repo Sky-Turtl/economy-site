@@ -10,20 +10,20 @@ export default function ContactPage() {
         <h1 className="mt-3 text-3xl font-semibold">Contact Us</h1>
 
         <div className="mt-6 space-y-4 text-sm text-slate-600">
-          <p>
-            <span className="font-semibold text-slate-900">Phone:</span>{" "}
+          <div>
+            <span className="font-semibold text-slate-900">Call/Text:</span>{" "}
             <a
               href="tel:17186612180"
               className="text-[var(--color-primary)] font-medium"
             >
               718-661-2180
             </a>
-          </p>
+          </div>
 
           <div>
             <span className="font-semibold text-slate-900">Address:</span>
             <div className="mt-1">
-              131-18 Avery Ave, Flushing, NY 11355
+              131-10 Avery Ave, Flushing, NY 11355
             </div>
           </div>
 
@@ -34,26 +34,13 @@ export default function ContactPage() {
             <div>Monday - Saturday: 7:30 AM – 6:00 PM</div>
             <div>Sunday: 8:00 AM – 3:00 PM</div>
           </div>
-
-          <div>
-            <div className="font-semibold text-slate-900 mb-1">
-              Service Area:
-            </div>
-            <div>Queens, Brooklyn, Manhattan, Nassau County</div>
-          </div>
-
-          <div className="text-slate-700">
-            • Same-day service available
-            <br />
-            • Emergency HVAC service available
-          </div>
         </div>
 
         <a
           href="tel:17186612180"
           className="inline-block mt-6 rounded-sm bg-[var(--color-primary)] px-5 py-3 text-sm font-semibold text-white hover:bg-[var(--color-primary-dark)]"
         >
-          Call Now
+          Call/Text Now
         </a>
 
         <div className="mt-8 border border-slate-200 bg-slate-50 p-5">
@@ -76,7 +63,7 @@ export default function ContactPage() {
         <div className="mt-5">
           <iframe
             title="Business Location"
-            src="https://www.google.com/maps?q=131-18+Avery+Ave+Flushing+NY+11355&output=embed"
+            src="https://www.google.com/maps?q=131-10+Avery+Ave+Flushing+NY+11355&output=embed"
             className="w-full h-80 border-0"
             loading="lazy"
           />
@@ -85,13 +72,6 @@ export default function ContactPage() {
         <div className="mt-6 text-sm text-slate-600">
           Visit our store for parts, service inquiries, or expert advice on HVAC systems.
         </div>
-
-        <a
-          href="tel:17186612180"
-          className="inline-block mt-6 rounded-sm bg-[var(--color-primary)] px-5 py-3 text-sm font-semibold text-white hover:bg-[var(--color-primary-dark)]"
-        >
-          Call for Assistance
-        </a>
       </div>
     </div>
   );
