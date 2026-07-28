@@ -36,8 +36,8 @@ export default function Header({ page, setPage }) {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
       <div className="bg-[var(--color-primary)] text-sm text-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-2">
-          <div className="flex flex-wrap gap-2">
+        <div className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-3">
+          <div className="flex flex-wrap items-baseline gap-2 text-base">
             <span className="font-semibold">Today's Hours:</span>
             <span>
               {today}: {hours[today]}
