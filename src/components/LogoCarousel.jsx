@@ -353,13 +353,13 @@ function LogoCarousel() {
                 ref={(el) => {
                   mobileLogoRefs.current[index] = el;
                 }}
-                className="flex h-20 shrink-0 items-center justify-center px-3"
+                className="flex h-20 w-32 shrink-0 items-center justify-center"
               >
                 <img
                   src={logo.src}
                   alt={logo.name}
                   draggable={false}
-                  className={`h-full w-auto object-contain transition duration-600 ${
+                  className={`h-full w-full object-contain transition duration-600 ${
                     mobileVisibleMap[index]
                       ? "grayscale-0 opacity-100"
                       : "grayscale opacity-60"
@@ -379,13 +379,13 @@ function LogoCarousel() {
                   ref={(el) => {
                     mobileLogoRefs.current[duplicateIndex] = el;
                   }}
-                  className="flex h-20 shrink-0 items-center justify-center px-3"
+                  className="flex h-20 w-32 shrink-0 items-center justify-center"
                 >
                   <img
                     src={logo.src}
                     alt={logo.name}
                     draggable={false}
-                    className={`h-full w-auto object-contain transition duration-300 ${
+                    className={`h-full w-full object-contain transition duration-300 ${
                       mobileVisibleMap[duplicateIndex]
                         ? "grayscale-0 opacity-100"
                         : "grayscale opacity-60"
@@ -428,7 +428,7 @@ function LogoCarousel() {
               return (
                 <div
                   key={`${logo.name}-first-${index}`}
-                  className="flex h-24 shrink-0 items-center justify-center px-4"
+                  className="flex h-24 w-40 shrink-0 items-center justify-center"
                   onMouseEnter={() => {
                     setHoveredIndex(index);
                   }}
@@ -440,7 +440,7 @@ function LogoCarousel() {
                     src={logo.src}
                     alt={logo.name}
                     draggable={false}
-                    className={`h-full w-auto object-contain transition duration-300 ${
+                    className={`h-full w-full object-contain transition duration-300 ${
                       isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
                     }`}
                   />
@@ -457,7 +457,7 @@ function LogoCarousel() {
               return (
                 <div
                   key={`${logo.name}-second-${index}`}
-                  className="flex h-24 shrink-0 items-center justify-center px-4"
+                  className="flex h-24 w-40 shrink-0 items-center justify-center"
                   onMouseEnter={() => {
                     setHoveredIndex(duplicatedIndex);
                   }}
@@ -469,7 +469,7 @@ function LogoCarousel() {
                     src={logo.src}
                     alt={logo.name}
                     draggable={false}
-                    className={`h-full w-auto object-contain transition duration-300 ${
+                    className={`h-full w-full object-contain transition duration-300 ${
                       isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
                     }`}
                   />
