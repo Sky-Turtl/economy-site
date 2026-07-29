@@ -69,14 +69,6 @@ export default function HomePage({ setPage }) {
         </div>
       </section>
 
-      <section className="border border-slate-200 bg-white p-6">
-        <h2 className="text-lg font-semibold">Privacy</h2>
-        <p className="mt-3 text-sm leading-7 text-slate-600">
-          Mobile information and text-message opt-in data are not shared with
-          third parties for marketing or promotional purposes.
-        </p>
-      </section>
-
       <section className="border border-slate-200 bg-white py-10">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-6 text-center">
@@ -130,6 +122,14 @@ export default function HomePage({ setPage }) {
             />
           </div>
         </div>
+      </section>
+
+      <section className="border border-slate-200 bg-white p-6">
+        <h2 className="text-lg font-semibold">Privacy</h2>
+        <p className="mt-3 text-sm leading-7 text-slate-600">
+          Mobile information and text-message opt-in data are not shared with
+          third parties for marketing or promotional purposes.
+        </p>
       </section>
     </div>
   );

@@ -1,8 +1,8 @@
 export default function ContactPage() {
   return (
-    <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+    <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
       {/* LEFT SIDE */}
-      <div className="border border-slate-200 bg-white p-8">
+      <div className="flex h-full flex-col border border-slate-200 bg-white p-8">
         <div className="text-sm font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)]">
           Contact
         </div>
@@ -57,7 +57,7 @@ export default function ContactPage() {
       </div>
 
       {/* RIGHT SIDE */}
-      <div className="border border-slate-200 bg-white p-8">
+      <div className="flex h-full flex-col border border-slate-200 bg-white p-8">
         <h2 className="text-lg font-semibold">Our Location</h2>
 
         <div className="mt-5">
