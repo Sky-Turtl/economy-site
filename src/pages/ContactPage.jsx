@@ -60,7 +60,7 @@ export default function ContactPage() {
       <div className="flex h-full flex-col border border-slate-200 bg-white p-8">
         <h2 className="text-lg font-semibold">Our Location</h2>
 
-        <div className="mt-5">
+        <div className="relative z-0 isolate mt-5">
           <iframe
             title="Business Location"
             src="https://www.google.com/maps?q=131-10+Avery+Ave+Flushing+NY+11355&output=embed"
