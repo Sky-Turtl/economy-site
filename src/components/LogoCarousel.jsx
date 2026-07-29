@@ -26,7 +26,7 @@ const partnerLogos = [
   { name: "Appion", src: `${import.meta.env.BASE_URL}logos/appion.jpg` },
   { name: "Yellow Jacket", src: `${import.meta.env.BASE_URL}logos/yellowjacket.jpg` },
   { name: "Navac", src: `${import.meta.env.BASE_URL}logos/navac.jpg` },
-  { name: "TurboTorch", src: `${import.meta.env.BASE_URL}logos/turbotorch.webp` },
+  { name: "TurboTorch", src: `${import.meta.env.BASE_URL}logos/turbotorch.png` },
   { name: "White-Rodgers", src: `${import.meta.env.BASE_URL}logos/white_rodgers.jpg` },
   { name: "Armacell", src: `${import.meta.env.BASE_URL}logos/armacell.png` },
   { name: "EWC", src: `${import.meta.env.BASE_URL}logos/ewc.jpg` },
