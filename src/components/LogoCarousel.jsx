@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 const partnerLogos = [
   { name: "Mitsubishi Electric", src: `${import.meta.env.BASE_URL}logos/mitsubishi.png` },
-  { name: "Fujitsu", src: `${import.meta.env.BASE_URL}logos/fujitsu.png`, scale: 1.19 },
+  { name: "Fujitsu", src: `${import.meta.env.BASE_URL}logos/fujitsu.png` },
   { name: "York", src: `${import.meta.env.BASE_URL}logos/york.jpg` },
   { name: "Carrier", src: `${import.meta.env.BASE_URL}logos/carrier.svg` },
   { name: "Rheem", src: `${import.meta.env.BASE_URL}logos/rheem.svg` },
@@ -16,18 +16,18 @@ const partnerLogos = [
   { name: "PennBarry", src: `${import.meta.env.BASE_URL}logos/pennbarry.jpg` },
   { name: "Canarm", src: `${import.meta.env.BASE_URL}logos/canarm.jpg` },
   { name: "Regal Rexnord", src: `${import.meta.env.BASE_URL}logos/regal_rexnord.webp` },
-  { name: "Arkema", src: `${import.meta.env.BASE_URL}logos/arkema.png`, scale: 1.25 },
-  { name: "RectorSeal", src: `${import.meta.env.BASE_URL}logos/rectorseal.jpg`, scale: 1.11 },
+  { name: "Arkema", src: `${import.meta.env.BASE_URL}logos/arkema.png` },
+  { name: "RectorSeal", src: `${import.meta.env.BASE_URL}logos/rectorseal.jpg` },
   { name: "TruAire", src: `${import.meta.env.BASE_URL}logos/truaire.png` },
   { name: "Comfortaire", src: `${import.meta.env.BASE_URL}logos/comfortaire.gif` },
   { name: "Diversitech", src: `${import.meta.env.BASE_URL}logos/diversitech.png` },
-  { name: "Milwaukee", src: `${import.meta.env.BASE_URL}logos/milwaukee.png`, scale: 1.06 },
+  { name: "Milwaukee", src: `${import.meta.env.BASE_URL}logos/milwaukee.png` },
   { name: "Fieldpiece", src: `${import.meta.env.BASE_URL}logos/fieldpiece.webp` },
-  { name: "Appion", src: `${import.meta.env.BASE_URL}logos/appion.jpg`, scale: 1.25 },
-  { name: "Yellow Jacket", src: `${import.meta.env.BASE_URL}logos/yellowjacket.jpg`, scale: 1.15 },
-  { name: "Navac", src: `${import.meta.env.BASE_URL}logos/navac.jpg`, scale: 1.2 },
+  { name: "Appion", src: `${import.meta.env.BASE_URL}logos/appion.jpg` },
+  { name: "Yellow Jacket", src: `${import.meta.env.BASE_URL}logos/yellowjacket.jpg` },
+  { name: "Navac", src: `${import.meta.env.BASE_URL}logos/navac.jpg` },
   { name: "TurboTorch", src: `${import.meta.env.BASE_URL}logos/turbotorch.webp` },
-  { name: "White-Rodgers", src: `${import.meta.env.BASE_URL}logos/white_rodgers.jpg`, scale: 1.17 },
+  { name: "White-Rodgers", src: `${import.meta.env.BASE_URL}logos/white_rodgers.jpg` },
   { name: "Armacell", src: `${import.meta.env.BASE_URL}logos/armacell.png` },
   { name: "EWC", src: `${import.meta.env.BASE_URL}logos/ewc.jpg` },
   { name: "Honeywell", src: `${import.meta.env.BASE_URL}logos/honeywell.webp` },
@@ -66,18 +66,18 @@ function LogoCarousel() {
   const movedRef = useRef(false);
 
   const MOBILE_BASE_SPEED = 0.45;
-  const MOBILE_MAX_SPEED = 2.2;
-  const MOBILE_MIN_SPEED = -1.6;
+  const MOBILE_MAX_SPEED = 3.2;
+  const MOBILE_MIN_SPEED = -2.3;
   const HOLD_DELAY = 180;
   const DRAG_MULTIPLIER = 0.035;
   const VELOCITY_BLEND = 0.35;
-  const DECAY_TO_BASE = 0.025;
+  const DECAY_TO_BASE = 0.055;
   const MOBILE_VISIBILITY_THRESHOLD = 0.5;
 
-  const DESKTOP_MAX_SPEED = 3.5;
-  const DESKTOP_MIN_SPEED = -2.5;
+  const DESKTOP_MAX_SPEED = 5;
+  const DESKTOP_MIN_SPEED = -3.5;
   const DESKTOP_VELOCITY_BLEND = 0.35;
-  const DESKTOP_DECAY_TO_BASE = 0.02;
+  const DESKTOP_DECAY_TO_BASE = 0.05;
 
   useEffect(() => {
     let desktopFrameId;
@@ -353,14 +353,13 @@ function LogoCarousel() {
                 ref={(el) => {
                   mobileLogoRefs.current[index] = el;
                 }}
-                className="flex h-28 w-40 shrink-0 items-center justify-center overflow-hidden"
+                className="flex h-20 shrink-0 items-center justify-center px-3"
               >
                 <img
                   src={logo.src}
                   alt={logo.name}
                   draggable={false}
-                  style={{ transform: `scale(${logo.scale ?? 1})` }}
-                  className={`max-h-20 w-full object-contain transition duration-600 ${
+                  className={`h-full w-auto object-contain transition duration-600 ${
                     mobileVisibleMap[index]
                       ? "grayscale-0 opacity-100"
                       : "grayscale opacity-60"
@@ -380,14 +379,13 @@ function LogoCarousel() {
                   ref={(el) => {
                     mobileLogoRefs.current[duplicateIndex] = el;
                   }}
-                  className="flex h-28 w-40 shrink-0 items-center justify-center overflow-hidden"
+                  className="flex h-20 shrink-0 items-center justify-center px-3"
                 >
                   <img
                     src={logo.src}
                     alt={logo.name}
                     draggable={false}
-                    style={{ transform: `scale(${logo.scale ?? 1})` }}
-                    className={`max-h-20 w-full object-contain transition duration-300 ${
+                    className={`h-full w-auto object-contain transition duration-300 ${
                       mobileVisibleMap[duplicateIndex]
                         ? "grayscale-0 opacity-100"
                         : "grayscale opacity-60"
@@ -430,7 +428,7 @@ function LogoCarousel() {
               return (
                 <div
                   key={`${logo.name}-first-${index}`}
-                  className="flex h-32 w-48 shrink-0 items-center justify-center overflow-hidden"
+                  className="flex h-24 shrink-0 items-center justify-center px-4"
                   onMouseEnter={() => {
                     setHoveredIndex(index);
                   }}
@@ -442,8 +440,7 @@ function LogoCarousel() {
                     src={logo.src}
                     alt={logo.name}
                     draggable={false}
-                    style={{ transform: `scale(${logo.scale ?? 1})` }}
-                    className={`max-h-24 w-full object-contain transition duration-300 ${
+                    className={`h-full w-auto object-contain transition duration-300 ${
                       isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
                     }`}
                   />
@@ -460,7 +457,7 @@ function LogoCarousel() {
               return (
                 <div
                   key={`${logo.name}-second-${index}`}
-                  className="flex h-32 w-48 shrink-0 items-center justify-center overflow-hidden"
+                  className="flex h-24 shrink-0 items-center justify-center px-4"
                   onMouseEnter={() => {
                     setHoveredIndex(duplicatedIndex);
                   }}
@@ -472,8 +469,7 @@ function LogoCarousel() {
                     src={logo.src}
                     alt={logo.name}
                     draggable={false}
-                    style={{ transform: `scale(${logo.scale ?? 1})` }}
-                    className={`max-h-24 w-full object-contain transition duration-300 ${
+                    className={`h-full w-auto object-contain transition duration-300 ${
                       isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
                     }`}
                   />
