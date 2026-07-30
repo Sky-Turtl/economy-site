@@ -111,11 +111,13 @@ export const categories = [
       "Panasonic",
       "Delhi",
       "PennBarry",
-      "Ventus",
-      "Twin City",
+      "VentsUS",
+      "Twin City Fans",
       "Acorn Air",
       "Timken & Replacement Motors",
-    ].map(item),
+    ].map((name) =>
+      name === "Delhi" ? { name, logo: brandLogos["Canarm"] } : item(name)
+    ),
   },
   {
     key: "water-control",
