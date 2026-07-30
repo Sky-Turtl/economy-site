@@ -208,17 +208,13 @@ export const categories = [
       "Copper ACR (Mueller Streamline)",
       "Copper Rolls",
       "Insulated Pipes",
+      "Tubing Insulation",
       "Armacell",
     ].map((name) =>
       name.startsWith("Copper ACR")
         ? { name, logo: brandLogos["Mueller Streamline"] }
         : item(name)
     ),
-  },
-  {
-    key: "tubing-insulation",
-    name: "Tubing Insulation",
-    items: ["Tubing Insulation"].map(item),
   },
   {
     key: "air-control",
