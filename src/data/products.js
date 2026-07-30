@@ -33,7 +33,7 @@ const brandLogos = {
   ZM: logo("zm.png"),
   Southwark: logo("southwark.png"),
   "Builder Best": logo("builder_best.png"),
-  "Gray Metal Trunk Duct": logo("trunk_duct.jpg"),
+  "Gray Metal Trunk Duct": logo("gray_metal.jpg"),
   Cancoil: logo("cancoil.jpg"),
   Refplus: logo("refplus.png"),
   Penn: logo("penn.avif"),
