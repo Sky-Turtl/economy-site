@@ -33,7 +33,7 @@ const brandLogos = {
   ZM: logo("zm.png"),
   Southwark: logo("southwark.png"),
   "Builder Best": logo("builder_best.png"),
-  "Gray Metal Trunk Duct": logo("trunk_duct.jpg"),
+  "Gray Metal Trunk Duct": logo("gray_metal.jpg"),
   Cancoil: logo("cancoil.jpg"),
   Refplus: logo("refplus.png"),
   Penn: logo("penn.avif"),
@@ -57,6 +57,11 @@ const brandLogos = {
   Shoemaker: logo("shoemaker.png"),
   Southwire: logo("southwire.png"),
   Uniweld: logo("uniweld.jpg"),
+  Ranco: logo("ranco.png"),
+  "Lau Blower Wheels": logo("lau.png"),
+  "Water Filters": logo("water_filter.webp"),
+  "Twin City Fans": logo("twin_city_fan.jpg"),
+  VentsUS: logo("ventsus.jpg"),
 };
 
 const item = (name) => ({ name, logo: brandLogos[name] });
@@ -109,13 +114,15 @@ export const categories = [
     name: "Ventilation",
     items: [
       "Panasonic",
-      "Delhi",
+      "Canarm (Delhi)",
       "PennBarry",
-      "Ventus",
-      "Twin City",
+      "VentsUS",
+      "Twin City Fans",
       "Acorn Air",
       "Timken & Replacement Motors",
-    ].map(item),
+    ].map((name) =>
+      name === "Canarm (Delhi)" ? { name, logo: brandLogos["Canarm"] } : item(name)
+    ),
   },
   {
     key: "water-control",
@@ -125,7 +132,11 @@ export const categories = [
       "Magic Air",
       "Water Regulating Valve (Penn)",
       "Water Filters",
-    ].map(item),
+    ].map((name) =>
+      name.startsWith("Water Regulating Valve")
+        ? { name, logo: brandLogos["Penn"] }
+        : item(name)
+    ),
   },
   {
     key: "tools",
@@ -165,7 +176,13 @@ export const categories = [
       "White Rodgers Boards",
       "Gas Valves",
       "Danfoss Compressor",
-    ].map(item),
+    ].map((name) => {
+      if (name === "White Rodgers Boards")
+        return { name, logo: brandLogos["White Rodgers"] };
+      if (name === "Danfoss Compressor")
+        return { name, logo: brandLogos["Danfoss"] };
+      return item(name);
+    }),
   },
   {
     key: "chemicals",
