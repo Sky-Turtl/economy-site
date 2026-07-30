@@ -57,6 +57,11 @@ const brandLogos = {
   Shoemaker: logo("shoemaker.png"),
   Southwire: logo("southwire.png"),
   Uniweld: logo("uniweld.jpg"),
+  Ranco: logo("ranco.png"),
+  "Lau Blower Wheels": logo("lau.png"),
+  "Water Filters": logo("water_filter.webp"),
+  "Twin City Fans": logo("twin_city_fan.jpg"),
+  VentsUS: logo("ventsus.jpg"),
 };
 
 const item = (name) => ({ name, logo: brandLogos[name] });
