@@ -174,12 +174,17 @@ export const categories = [
       "Nu-Calgon Cleaning",
       "Vacuum Oils",
       "POE Oils, etc.",
-      "Tape & Sealant",
+      "Silicone",
+    ].map(item),
+  },
+  {
+    key: "tape-sealant",
+    name: "Tape & Sealant",
+    items: [
       "3M (Foil & Fire Tape)",
       "Venture Duct Tape",
       "Hardcast Outdoor Duct Sealer",
       "Polymer Indoor Duct Sealer",
-      "Silicone",
     ].map(item),
   },
   {
