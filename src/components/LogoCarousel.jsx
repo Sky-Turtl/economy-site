@@ -15,6 +15,7 @@ const partnerLogos = [
   { name: "Mueller Streamline", src: `${import.meta.env.BASE_URL}logos/mueller.jpg` },
   { name: "PennBarry", src: `${import.meta.env.BASE_URL}logos/pennbarry.jpg` },
   { name: "Canarm", src: `${import.meta.env.BASE_URL}logos/canarm.jpg` },
+  { name: "Danfoss", src: `${import.meta.env.BASE_URL}logos/danfoss.jpg` },
 ];
 
 function LogoCarousel() {

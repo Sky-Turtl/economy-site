@@ -26,6 +26,8 @@ export default function Header({ page, setPage }) {
   const navItems = [
     { label: "Home", key: "home" },
     { label: "Products", key: "products" },
+    { label: "Products (Accordion)", key: "products-accordion" },
+    { label: "Products (Sidebar)", key: "products-sidebar" },
     { label: "Contact Us", key: "contact" },
   ];
 

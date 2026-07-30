@@ -17,6 +17,7 @@ const brandLogos = {
   PennBarry: logo("pennbarry.jpg"),
   Canarm: logo("canarm.jpg"),
   "Mueller Streamline": logo("mueller.jpg"),
+  Danfoss: logo("danfoss.jpg"),
 };
 
 const item = (name) => ({ name, logo: brandLogos[name] });
