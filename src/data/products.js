@@ -174,7 +174,6 @@ export const categories = [
       "Nu-Calgon Cleaning",
       "Vacuum Oils",
       "POE Oils, etc.",
-      "Silicone",
     ].map(item),
   },
   {
@@ -185,6 +184,7 @@ export const categories = [
       "Venture Duct Tape",
       "Hardcast Outdoor Duct Sealer",
       "Polymer Indoor Duct Sealer",
+      "Silicone",
     ].map(item),
   },
   {
