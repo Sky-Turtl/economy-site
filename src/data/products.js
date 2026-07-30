@@ -109,14 +109,14 @@ export const categories = [
     name: "Ventilation",
     items: [
       "Panasonic",
-      "Delhi",
+      "Canarm (Delhi)",
       "PennBarry",
       "VentsUS",
       "Twin City Fans",
       "Acorn Air",
       "Timken & Replacement Motors",
     ].map((name) =>
-      name === "Delhi" ? { name, logo: brandLogos["Canarm"] } : item(name)
+      name === "Canarm (Delhi)" ? { name, logo: brandLogos["Canarm"] } : item(name)
     ),
   },
   {
