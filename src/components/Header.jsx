@@ -1,4 +1,4 @@
-﻿import { forwardRef, useState } from "react";
+﻿import { useState } from "react";
 
 const hours = {
   Sunday: "8:00 AM - 3:00 PM",
@@ -16,7 +16,7 @@ const holidayClosures = [
   // { name: "Independence Day", date: "July 4" },
 ];
 
-const Header = forwardRef(function Header({ page, setPage }, ref) {
+export default function Header({ page, setPage }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const today = new Date().toLocaleDateString("en-US", {
@@ -27,6 +27,7 @@ const Header = forwardRef(function Header({ page, setPage }, ref) {
     { label: "Home", key: "home" },
     { label: "Products", key: "products" },
     { label: "Products (One Page)", key: "products-onepage" },
+    { label: "Products (Two Column)", key: "products-twocolumn" },
     { label: "Contact Us", key: "contact" },
   ];
 
@@ -36,10 +37,7 @@ const Header = forwardRef(function Header({ page, setPage }, ref) {
   };
 
   return (
-    <header
-      ref={ref}
-      className="sticky top-0 z-50 border-b border-slate-200 bg-white"
-    >
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
       <div className="bg-[var(--color-primary)] text-sm text-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-3">
           <div className="flex flex-wrap items-baseline gap-2 text-base">
@@ -130,6 +128,4 @@ const Header = forwardRef(function Header({ page, setPage }, ref) {
       </div>
     </header>
   );
-});
-
-export default Header;
+}
