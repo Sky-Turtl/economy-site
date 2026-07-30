@@ -23,7 +23,7 @@ export default function ProductsSidebarPage() {
       </div>
 
       <div className="flex flex-col gap-6 md:flex-row md:items-start">
-        <nav className="flex gap-2 overflow-x-auto md:w-64 md:shrink-0 md:flex-col md:overflow-visible">
+        <nav className="flex gap-2 overflow-x-auto md:sticky md:top-24 md:max-h-[calc(100vh-7rem)] md:w-64 md:shrink-0 md:flex-col md:overflow-y-auto md:overflow-x-visible">
           {categories.map((category) => {
             const isActive = category.key === selected?.key;
             return (

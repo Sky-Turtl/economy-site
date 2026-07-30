@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 
 const hours = {
   Sunday: "8:00 AM - 3:00 PM",
@@ -26,8 +26,6 @@ export default function Header({ page, setPage }) {
   const navItems = [
     { label: "Home", key: "home" },
     { label: "Products", key: "products" },
-    { label: "Products (Accordion)", key: "products-accordion" },
-    { label: "Products (Sidebar)", key: "products-sidebar" },
     { label: "Contact Us", key: "contact" },
   ];
 
@@ -53,7 +51,7 @@ export default function Header({ page, setPage }) {
               {holidayClosures.map((holiday, index) => (
                 <span key={holiday.name}>
                   {holiday.name}
-                  {index < holidayClosures.length - 1 && " • "}
+                  {index < holidayClosures.length - 1 && " â€¢ "}
                 </span>
               ))}
             </div>
