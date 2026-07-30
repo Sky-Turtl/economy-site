@@ -30,6 +30,15 @@ const brandLogos = {
   Honeywell: logo("honeywell.webp"),
   Armacell: logo("armacell.png"),
   "Truair (Rectorseal)": logo("truaire.png"),
+  ZM: logo("zm.png"),
+  Southwark: logo("southwark.png"),
+  "Builder Best": logo("builder_best.png"),
+  "Gray Metal Trunk Duct": logo("trunk_duct.jpg"),
+  Cancoil: logo("cancoil.jpg"),
+  Refplus: logo("refplus.png"),
+  Penn: logo("penn.avif"),
+  Panasonic: logo("panasonic.jpg"),
+  "Timken & Replacement Motors": logo("timken.jpg"),
 };
 
 const item = (name) => ({ name, logo: brandLogos[name] });
