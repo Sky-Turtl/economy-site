@@ -37,12 +37,29 @@ const brandLogos = {
   Cancoil: logo("cancoil.jpg"),
   Refplus: logo("refplus.png"),
   Penn: logo("penn.avif"),
-  Panasonic: logo("panasonic.jpg"),
+  Panasonic: logo("panasonic_blue.jpg"),
   "Timken & Replacement Motors": logo("timken.jpg"),
+  "Acorn Air": logo("acornair.png"),
+  BELIMO: logo("belimo.webp"),
+  Braeburn: logo("braeburn.jpg"),
+  "Field Controls": logo("field_controls.png"),
+  "Klein Tools": logo("klein_tools.png"),
+  "Linear Grilles": logo("linear_grille.jpg"),
+  "Lucas Milhaupt": logo("lucas_milhaupt.png"),
+  "Magic Air": logo("magic_aire.png"),
+  "Mason Industries": logo("mason_industries.png"),
+  Mastercool: logo("mastercool.webp"),
+  "Hot Water Pump (Mepco)": logo("mepco.webp"),
+  Midwest: logo("midwest.jpg"),
+  "Nu-Calgon Cleaning": logo("nucalgon.png"),
+  PolarPads: logo("polarpad.webp"),
+  Refrigerants: logo("refrigerant.png"),
+  Shoemaker: logo("shoemaker.png"),
+  Southwire: logo("southwire.png"),
+  Uniweld: logo("uniweld.jpg"),
 };
 
 const item = (name) => ({ name, logo: brandLogos[name] });
-
 export const categories = [
   {
     key: "sheet-metal",
