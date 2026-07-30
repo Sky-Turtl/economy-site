@@ -52,14 +52,14 @@ export default function ProductsOnePagePage() {
               </h2>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {category.items.map((entry) => (
                 <div
                   key={entry.name}
-                  className="border border-slate-200 bg-white p-4"
+                  className="border border-slate-200 bg-white p-3"
                 >
                   {entry.logo ? (
-                    <div className="flex h-28 w-full items-center justify-center border border-slate-100 p-3">
+                    <div className="flex h-20 w-full items-center justify-center border border-slate-100 p-2">
                       <img
                         src={entry.logo}
                         alt={entry.name}
@@ -69,10 +69,10 @@ export default function ProductsOnePagePage() {
                   ) : (
                     <BrandBadge
                       name={entry.name}
-                      className="h-28 w-full border border-slate-100"
+                      className="h-20 w-full border border-slate-100"
                     />
                   )}
-                  <div className="mt-3 text-sm font-semibold text-slate-900">
+                  <div className="mt-2 text-xs font-semibold text-slate-900">
                     {entry.name}
                   </div>
                 </div>
