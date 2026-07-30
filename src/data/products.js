@@ -125,7 +125,11 @@ export const categories = [
       "Magic Air",
       "Water Regulating Valve (Penn)",
       "Water Filters",
-    ].map(item),
+    ].map((name) =>
+      name.startsWith("Water Regulating Valve")
+        ? { name, logo: brandLogos["Penn"] }
+        : item(name)
+    ),
   },
   {
     key: "tools",
@@ -165,7 +169,13 @@ export const categories = [
       "White Rodgers Boards",
       "Gas Valves",
       "Danfoss Compressor",
-    ].map(item),
+    ].map((name) => {
+      if (name === "White Rodgers Boards")
+        return { name, logo: brandLogos["White Rodgers"] };
+      if (name === "Danfoss Compressor")
+        return { name, logo: brandLogos["Danfoss"] };
+      return item(name);
+    }),
   },
   {
     key: "chemicals",
