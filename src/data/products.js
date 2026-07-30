@@ -65,11 +65,11 @@ export const categories = [
     key: "sheet-metal",
     name: "Snaplock Pipe & Fittings",
     items: [
-      "Snaplock Pipe & Fittings",
       "ZM",
       "Southwark",
       "Builder Best",
       "Gray Metal Trunk Duct",
+      "Sheet Metal",
     ].map(item),
   },
   {
