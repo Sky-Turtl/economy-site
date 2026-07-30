@@ -1,30 +1,53 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 
 const partnerLogos = [
-  { name: "Mitsubishi Electric", src: `${import.meta.env.BASE_URL}logos/mitsubishi.svg` },
-  { name: "Fujitsu", src: `${import.meta.env.BASE_URL}logos/fujitsu.svg` },
+  { name: "Mitsubishi Electric", src: `${import.meta.env.BASE_URL}logos/mitsubishi.png` },
+  { name: "Fujitsu", src: `${import.meta.env.BASE_URL}logos/fujitsu.png` },
   { name: "York", src: `${import.meta.env.BASE_URL}logos/york.jpg` },
   { name: "Carrier", src: `${import.meta.env.BASE_URL}logos/carrier.svg` },
   { name: "Rheem", src: `${import.meta.env.BASE_URL}logos/rheem.svg` },
   { name: "Sporlan", src: `${import.meta.env.BASE_URL}logos/sporlan.jpg` },
-  { name: "Tecumseh", src: `${import.meta.env.BASE_URL}logos/tecumseh.svg` },
+  { name: "Tecumseh", src: `${import.meta.env.BASE_URL}logos/tecumseh.png` },
   { name: "CT Morley", src: `${import.meta.env.BASE_URL}logos/CTM.png` },
   { name: "Robertshaw", src: `${import.meta.env.BASE_URL}logos/robertshaw.svg` },
   { name: "Embraco", src: `${import.meta.env.BASE_URL}logos/embraco.svg` },
   { name: "Solstice", src: `${import.meta.env.BASE_URL}logos/solstice.svg` },
-  { name: "Mueller Streamline", src: `${import.meta.env.BASE_URL}logos/mueller.jpg` },
+  { name: "Mueller Streamline", src: `${import.meta.env.BASE_URL}logos/mueller.png` },
   { name: "PennBarry", src: `${import.meta.env.BASE_URL}logos/pennbarry.jpg` },
   { name: "Canarm", src: `${import.meta.env.BASE_URL}logos/canarm.jpg` },
   { name: "Danfoss", src: `${import.meta.env.BASE_URL}logos/danfoss.jpg` },
+  { name: "Regal Rexnord", src: `${import.meta.env.BASE_URL}logos/regal_rexnord.webp` },
+  { name: "Arkema", src: `${import.meta.env.BASE_URL}logos/arkema.png` },
+  { name: "RectorSeal", src: `${import.meta.env.BASE_URL}logos/rectorseal.jpg` },
+  { name: "TruAire", src: `${import.meta.env.BASE_URL}logos/truaire.png` },
+  { name: "Comfortaire", src: `${import.meta.env.BASE_URL}logos/comfortaire.gif` },
+  { name: "Diversitech", src: `${import.meta.env.BASE_URL}logos/diversitech.png` },
+  { name: "Milwaukee", src: `${import.meta.env.BASE_URL}logos/milwaukee.png` },
+  { name: "Fieldpiece", src: `${import.meta.env.BASE_URL}logos/fieldpiece.webp` },
+  { name: "Appion", src: `${import.meta.env.BASE_URL}logos/appion.jpg` },
+  { name: "Yellow Jacket", src: `${import.meta.env.BASE_URL}logos/yellowjacket.jpg` },
+  { name: "Navac", src: `${import.meta.env.BASE_URL}logos/navac.jpg` },
+  { name: "TurboTorch", src: `${import.meta.env.BASE_URL}logos/turbotorch.png` },
+  { name: "White-Rodgers", src: `${import.meta.env.BASE_URL}logos/white_rodgers.jpg` },
+  { name: "Armacell", src: `${import.meta.env.BASE_URL}logos/armacell.png` },
+  { name: "EWC", src: `${import.meta.env.BASE_URL}logos/ewc.jpg` },
+  { name: "Honeywell", src: `${import.meta.env.BASE_URL}logos/honeywell.webp` },
 ];
 
 function LogoCarousel() {
   const desktopTrackRef = useRef(null);
   const desktopFirstSetRef = useRef(null);
   const desktopOffsetRef = useRef(0);
-  const desktopSpeedRef = useRef(0.45);
+  const desktopBaseSpeedRef = useRef(0.45);
+  const desktopTargetVelocityRef = useRef(0.45);
   const desktopCurrentSpeedRef = useRef(0.45);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const desktopPointerDownRef = useRef(false);
+  const desktopStartXRef = useRef(0);
+  const desktopLastXRef = useRef(0);
+  const desktopLastTimeRef = useRef(0);
+  const desktopMovedRef = useRef(false);
 
   const mobileViewportRef = useRef(null);
   const mobileTrackRef = useRef(null);
@@ -44,13 +67,18 @@ function LogoCarousel() {
   const movedRef = useRef(false);
 
   const MOBILE_BASE_SPEED = 0.45;
-  const MOBILE_MAX_SPEED = 2.2;
-  const MOBILE_MIN_SPEED = -1.6;
+  const MOBILE_MAX_SPEED = 3.2;
+  const MOBILE_MIN_SPEED = -2.3;
   const HOLD_DELAY = 180;
   const DRAG_MULTIPLIER = 0.035;
   const VELOCITY_BLEND = 0.35;
-  const DECAY_TO_BASE = 0.025;
+  const DECAY_TO_BASE = 0.055;
   const MOBILE_VISIBILITY_THRESHOLD = 0.5;
+
+  const DESKTOP_MAX_SPEED = 5;
+  const DESKTOP_MIN_SPEED = -3.5;
+  const DESKTOP_VELOCITY_BLEND = 0.35;
+  const DESKTOP_DECAY_TO_BASE = 0.05;
 
   useEffect(() => {
     let desktopFrameId;
@@ -109,10 +137,17 @@ function LogoCarousel() {
 
       const singleSetWidth = firstSet.offsetWidth;
 
-      desktopCurrentSpeedRef.current +=
-        (desktopSpeedRef.current - desktopCurrentSpeedRef.current) * 0.06;
+      if (!desktopPointerDownRef.current) {
+        desktopTargetVelocityRef.current +=
+          (desktopBaseSpeedRef.current - desktopTargetVelocityRef.current) *
+          DESKTOP_DECAY_TO_BASE;
 
-      desktopOffsetRef.current += desktopCurrentSpeedRef.current;
+        desktopCurrentSpeedRef.current +=
+          (desktopTargetVelocityRef.current - desktopCurrentSpeedRef.current) *
+          0.14;
+
+        desktopOffsetRef.current += desktopCurrentSpeedRef.current;
+      }
 
       if (singleSetWidth > 0) {
         desktopOffsetRef.current =
@@ -244,6 +279,58 @@ function LogoCarousel() {
     mobilePausedRef.current = false;
   };
 
+  const handleDesktopPointerDown = (e) => {
+    desktopPointerDownRef.current = true;
+    desktopMovedRef.current = false;
+
+    desktopStartXRef.current = e.clientX;
+    desktopLastXRef.current = e.clientX;
+    desktopLastTimeRef.current = performance.now();
+  };
+
+  const handleDesktopPointerMove = (e) => {
+    if (!desktopPointerDownRef.current) return;
+
+    const now = performance.now();
+    const currentX = e.clientX;
+    const dx = currentX - desktopLastXRef.current;
+    const totalDx = currentX - desktopStartXRef.current;
+    const dt = Math.max(now - desktopLastTimeRef.current, 1);
+
+    if (Math.abs(totalDx) > 4) {
+      desktopMovedRef.current = true;
+    }
+
+    if (desktopMovedRef.current) {
+      desktopOffsetRef.current -= dx;
+
+      const swipeVelocity = (-dx / dt) * 16 * DRAG_MULTIPLIER * 10;
+      const nextTarget =
+        desktopTargetVelocityRef.current * (1 - DESKTOP_VELOCITY_BLEND) +
+        swipeVelocity * DESKTOP_VELOCITY_BLEND;
+
+      desktopTargetVelocityRef.current = clamp(
+        nextTarget,
+        DESKTOP_MIN_SPEED,
+        DESKTOP_MAX_SPEED
+      );
+      desktopCurrentSpeedRef.current = desktopTargetVelocityRef.current;
+    }
+
+    desktopLastXRef.current = currentX;
+    desktopLastTimeRef.current = now;
+  };
+
+  const handleDesktopPointerUp = () => {
+    desktopPointerDownRef.current = false;
+    desktopMovedRef.current = false;
+  };
+
+  const handleDesktopPointerCancel = () => {
+    desktopPointerDownRef.current = false;
+    desktopMovedRef.current = false;
+  };
+
   return (
     <>
       <div
@@ -267,13 +354,13 @@ function LogoCarousel() {
                 ref={(el) => {
                   mobileLogoRefs.current[index] = el;
                 }}
-                className="flex h-28 w-40 shrink-0 items-center justify-center"
+                className="flex h-20 w-32 shrink-0 items-center justify-center"
               >
                 <img
                   src={logo.src}
                   alt={logo.name}
                   draggable={false}
-                  className={`max-h-20 w-full object-contain transition duration-600 ${
+                  className={`h-full w-full object-contain transition duration-600 ${
                     mobileVisibleMap[index]
                       ? "grayscale-0 opacity-100"
                       : "grayscale opacity-60"
@@ -293,13 +380,13 @@ function LogoCarousel() {
                   ref={(el) => {
                     mobileLogoRefs.current[duplicateIndex] = el;
                   }}
-                  className="flex h-28 w-40 shrink-0 items-center justify-center"
+                  className="flex h-20 w-32 shrink-0 items-center justify-center"
                 >
                   <img
                     src={logo.src}
                     alt={logo.name}
                     draggable={false}
-                    className={`max-h-20 w-full object-contain transition duration-300 ${
+                    className={`h-full w-full object-contain transition duration-300 ${
                       mobileVisibleMap[duplicateIndex]
                         ? "grayscale-0 opacity-100"
                         : "grayscale opacity-60"
@@ -315,16 +402,22 @@ function LogoCarousel() {
       <div
         className="hidden overflow-hidden md:block"
         onMouseEnter={() => {
-          desktopSpeedRef.current = 0.225;
+          desktopBaseSpeedRef.current = 0.225;
         }}
         onMouseLeave={() => {
-          desktopSpeedRef.current = 0.45;
+          desktopBaseSpeedRef.current = 0.45;
           setHoveredIndex(null);
+          handleDesktopPointerUp();
         }}
+        onPointerDown={handleDesktopPointerDown}
+        onPointerMove={handleDesktopPointerMove}
+        onPointerUp={handleDesktopPointerUp}
+        onPointerCancel={handleDesktopPointerCancel}
+        style={{ touchAction: "pan-y", cursor: "grab" }}
       >
         <div
           ref={desktopTrackRef}
-          className="flex w-max items-center will-change-transform"
+          className="flex w-max items-center will-change-transform select-none"
         >
           <div
             ref={desktopFirstSetRef}
@@ -336,7 +429,7 @@ function LogoCarousel() {
               return (
                 <div
                   key={`${logo.name}-first-${index}`}
-                  className="flex h-32 w-48 shrink-0 items-center justify-center"
+                  className="flex h-24 w-40 shrink-0 items-center justify-center"
                   onMouseEnter={() => {
                     setHoveredIndex(index);
                   }}
@@ -347,7 +440,8 @@ function LogoCarousel() {
                   <img
                     src={logo.src}
                     alt={logo.name}
-                    className={`max-h-24 w-full object-contain transition duration-300 ${
+                    draggable={false}
+                    className={`h-full w-full object-contain transition duration-300 ${
                       isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
                     }`}
                   />
@@ -364,7 +458,7 @@ function LogoCarousel() {
               return (
                 <div
                   key={`${logo.name}-second-${index}`}
-                  className="flex h-32 w-48 shrink-0 items-center justify-center"
+                  className="flex h-24 w-40 shrink-0 items-center justify-center"
                   onMouseEnter={() => {
                     setHoveredIndex(duplicatedIndex);
                   }}
@@ -375,7 +469,8 @@ function LogoCarousel() {
                   <img
                     src={logo.src}
                     alt={logo.name}
-                    className={`max-h-24 w-full object-contain transition duration-300 ${
+                    draggable={false}
+                    className={`h-full w-full object-contain transition duration-300 ${
                       isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
                     }`}
                   />
