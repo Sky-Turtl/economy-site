@@ -26,7 +26,7 @@ export default function Header({ page, setPage }) {
   const navItems = [
     { label: "Home", key: "home" },
     { label: "Products", key: "products" },
-    { label: "Products (One Page)", key: "products-onepage" },
+    { label: "Products (Top Rows)", key: "products-toprows" },
     { label: "Products (Two Column)", key: "products-twocolumn" },
     { label: "Contact Us", key: "contact" },
   ];
