@@ -80,14 +80,14 @@ export default function ProductsSidebarPage() {
               </div>
 
               <div className="min-h-0 md:flex-1 md:overflow-y-auto">
-                <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(9rem,1fr))] gap-3">
                   {selected.items.map((entry) => (
                     <div
                       key={entry.name}
-                      className="border border-slate-200 bg-white p-3"
+                      className="min-w-[9rem] border border-slate-200 bg-white p-3"
                     >
                       {entry.logo ? (
-                        <div className="flex h-16 w-full items-center justify-center border border-slate-100 p-2">
+                        <div className="flex h-16 min-h-16 w-full items-center justify-center overflow-hidden border border-slate-100 p-2">
                           <img
                             src={entry.logo}
                             alt={entry.name}
@@ -97,7 +97,7 @@ export default function ProductsSidebarPage() {
                       ) : (
                         <BrandBadge
                           name={entry.name}
-                          className="h-16 w-full border border-slate-100"
+                          className="h-16 min-h-16 w-full overflow-hidden border border-slate-100"
                         />
                       )}
                       <div className="mt-2 text-xs font-semibold text-slate-900">
