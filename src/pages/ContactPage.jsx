@@ -36,13 +36,6 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <a
-          href="tel:17186612180"
-          className="inline-block mt-6 rounded-sm bg-[var(--color-primary)] px-5 py-3 text-sm font-semibold text-white hover:bg-[var(--color-primary-dark)]"
-        >
-          Call/Text Now
-        </a>
-
         <div className="mt-8 border border-slate-200 bg-slate-50 p-5">
           <div className="text-sm font-semibold text-slate-900">
             Privacy Policy

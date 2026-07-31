@@ -347,14 +347,14 @@ function LogoCarousel() {
           ref={mobileTrackRef}
           className="flex w-max items-center will-change-transform select-none"
         >
-          <div ref={mobileFirstSetRef} className="flex items-center gap-6 pr-6">
+          <div ref={mobileFirstSetRef} className="flex items-center gap-4 pr-4">
             {partnerLogos.map((logo, index) => (
               <div
                 key={`${logo.name}-mobile-first-${index}`}
                 ref={(el) => {
                   mobileLogoRefs.current[index] = el;
                 }}
-                className="flex h-20 w-32 shrink-0 items-center justify-center"
+                className="flex h-14 w-24 shrink-0 items-center justify-center"
               >
                 <img
                   src={logo.src}
@@ -370,7 +370,7 @@ function LogoCarousel() {
             ))}
           </div>
 
-          <div className="flex items-center gap-6 pr-6">
+          <div className="flex items-center gap-4 pr-4">
             {partnerLogos.map((logo, index) => {
               const duplicateIndex = index + partnerLogos.length;
 
@@ -380,7 +380,7 @@ function LogoCarousel() {
                   ref={(el) => {
                     mobileLogoRefs.current[duplicateIndex] = el;
                   }}
-                  className="flex h-20 w-32 shrink-0 items-center justify-center"
+                  className="flex h-14 w-24 shrink-0 items-center justify-center"
                 >
                   <img
                     src={logo.src}
