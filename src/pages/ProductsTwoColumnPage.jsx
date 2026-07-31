@@ -30,14 +30,14 @@ export default function ProductsTwoColumnPage() {
           <h2 className="mb-3 shrink-0 text-sm font-semibold uppercase tracking-[0.06em] text-slate-500">
             Categories
           </h2>
-          <div className="grid grid-cols-2 gap-3 min-h-0 md:flex-1 md:overflow-y-auto md:pr-1">
+          <div className="grid grid-flow-col grid-rows-2 gap-3 min-h-0 overflow-x-auto pb-2 md:grid-flow-row md:grid-cols-2 md:grid-rows-none md:flex-1 md:overflow-y-auto md:overflow-x-visible md:pb-0 md:pr-1">
             {categories.map((category) => {
               const isActive = category.key === selected?.key;
               return (
                 <button
                   key={category.key}
                   onClick={() => setActiveCategory(category.key)}
-                  className={`flex items-center gap-4 border p-4 text-left ${
+                  className={`flex w-40 shrink-0 items-center gap-4 border p-4 text-left md:w-auto ${
                     isActive
                       ? "border-[var(--color-primary)] bg-red-50"
                       : "border-slate-200 bg-white hover:border-slate-300"
