@@ -91,7 +91,7 @@ export default function ProductsSidebarPage() {
                           <img
                             src={entry.logo}
                             alt={entry.name}
-                            className="h-full w-full scale-125 object-contain"
+                            className="h-full w-full object-contain"
                           />
                         </div>
                       ) : (
