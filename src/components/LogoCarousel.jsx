@@ -360,7 +360,7 @@ function LogoCarousel() {
                   src={logo.src}
                   alt={logo.name}
                   draggable={false}
-                  className={`h-full w-full scale-125 object-contain transition duration-600 ${
+                  className={`h-full w-full object-contain transition duration-600 ${
                     mobileVisibleMap[index]
                       ? "grayscale-0 opacity-100"
                       : "grayscale opacity-60"
@@ -386,7 +386,7 @@ function LogoCarousel() {
                     src={logo.src}
                     alt={logo.name}
                     draggable={false}
-                    className={`h-full w-full scale-125 object-contain transition duration-300 ${
+                    className={`h-full w-full object-contain transition duration-300 ${
                       mobileVisibleMap[duplicateIndex]
                         ? "grayscale-0 opacity-100"
                         : "grayscale opacity-60"
