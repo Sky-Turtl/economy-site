@@ -441,7 +441,7 @@ function LogoCarousel() {
                     src={logo.src}
                     alt={logo.name}
                     draggable={false}
-                    className={`h-full w-full scale-125 object-contain transition duration-300 ${
+                    className={`h-full w-full object-contain transition duration-300 ${
                       isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
                     }`}
                   />
@@ -470,7 +470,7 @@ function LogoCarousel() {
                     src={logo.src}
                     alt={logo.name}
                     draggable={false}
-                    className={`h-full w-full scale-125 object-contain transition duration-300 ${
+                    className={`h-full w-full object-contain transition duration-300 ${
                       isHovered ? "grayscale-0 opacity-100" : "grayscale opacity-70"
                     }`}
                   />
