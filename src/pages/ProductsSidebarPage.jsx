@@ -87,17 +87,17 @@ export default function ProductsSidebarPage() {
                       className="min-w-[9rem] border border-slate-200 bg-white p-3"
                     >
                       {entry.logo ? (
-                        <div className="flex h-16 min-h-16 w-full items-center justify-center overflow-hidden border border-slate-100 p-2">
+                        <div className="flex h-20 min-h-20 w-full items-center justify-center overflow-hidden border border-slate-100 p-1">
                           <img
                             src={entry.logo}
                             alt={entry.name}
-                            className="max-h-full max-w-full object-contain"
+                            className="h-full w-full scale-125 object-contain"
                           />
                         </div>
                       ) : (
                         <BrandBadge
                           name={entry.name}
-                          className="h-16 min-h-16 w-full overflow-hidden border border-slate-100"
+                          className="h-20 min-h-20 w-full overflow-hidden border border-slate-100"
                         />
                       )}
                       <div className="mt-2 text-xs font-semibold text-slate-900">
